@@ -1,14 +1,14 @@
 package models
 
 type Vacancy struct {
-	ID             uint   `gorm:"primaryKey"`
-	CompanyID      uint   `gorm:"not null"`
-	JobTitle       string `gorm:"not null"`
-	JobDescription string `gorm:"not null"`
-	Type           string
-	Salary         int    `gorm:"not null"`
-	SalaryType     string `gorm:"not null"`
-	Address        string `gorm:"not null"`
-	UserID         uint   `gorm:"not null"`
-	IsPublished    bool   `gorm:"default:false"`
+	ID             uint   `gorm:"primaryKey" json:"id"`
+	CompanyID      uint   `gorm:"not null" json:"company_id"`
+	JobTitle       string `gorm:"not null;size:100" json:"job_title"`
+	JobDescription string `gorm:"not null" json:"job_description"`
+	Type           string `gorm:"size:50" json:"type"`
+	Salary         int    `gorm:"default:0" json:"salary"`
+	SalaryType     string `gorm:"size:50" json:"salary_type"`
+	Address        string `gorm:"not null;size:255" json:"address"`
+	UserID         uint   `gorm:"not null" json:"user_id"`
+	IsPublished    bool   `gorm:"default:false" json:"is_published"`
 }
