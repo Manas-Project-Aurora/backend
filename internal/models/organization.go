@@ -1,6 +1,6 @@
 package models
 
-type Company struct {
+type Organization struct {
 	ID          uint   `gorm:"primaryKey" json:"id"`
 	Website     string `gorm:"size:255" json:"website"`
 	Logo        string `gorm:"size:255" json:"logo_url"`
