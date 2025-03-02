@@ -39,7 +39,6 @@ func (s *organizationService) UpdateOrganization(id uint, org *models.Organizati
 		return err
 	}
 
-	// Update the fields here
 	existingOrg.Title = org.Title
 	existingOrg.Description = org.Description
 	existingOrg.Logo = org.Logo

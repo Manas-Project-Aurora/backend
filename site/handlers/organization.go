@@ -1,11 +1,14 @@
 package handlers
 
 import (
-	"github.com/Manas-Project-Aurora/gavna/internal/models"
-	"github.com/Manas-Project-Aurora/gavna/site/services"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+
+	"github.com/Manas-Project-Aurora/gavna/internal/models"
+	"github.com/Manas-Project-Aurora/gavna/site/repository"
+	"github.com/Manas-Project-Aurora/gavna/site/services"
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type OrganizationHandler struct {
@@ -14,6 +17,20 @@ type OrganizationHandler struct {
 
 func NewOrganizationHandler(service services.OrganizationService) *OrganizationHandler {
 	return &OrganizationHandler{Service: service}
+}
+func RegisterOrganizationRoutes(router *gin.RouterGroup, db *gorm.DB) {
+	orgRepo := repository.NewOrganizationRepository(db)
+	orgService := services.NewOrganizationService(orgRepo)
+	orgHandler := NewOrganizationHandler(orgService)
+
+	orgRoutes := router.Group("/organizations")
+	{
+		orgRoutes.GET("", orgHandler.GetOrganizations)
+		orgRoutes.GET("/:id", orgHandler.GetOrganizationByID)
+		orgRoutes.POST("", orgHandler.CreateOrganization)
+		orgRoutes.PUT("/:id", orgHandler.UpdateOrganization)
+		orgRoutes.DELETE("/:id", orgHandler.DeleteOrganization)
+	}
 }
 
 func (h *OrganizationHandler) GetOrganizations(c *gin.Context) {
