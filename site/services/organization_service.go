@@ -38,7 +38,6 @@ func (s *organizationService) UpdateOrganization(id uint, org *models.Organizati
 	if err != nil {
 		return err
 	}
-
 	existingOrg.Title = org.Title
 	existingOrg.Description = org.Description
 	existingOrg.Logo = org.Logo

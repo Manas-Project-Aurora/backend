@@ -18,6 +18,7 @@ type OrganizationHandler struct {
 func NewOrganizationHandler(service services.OrganizationService) *OrganizationHandler {
 	return &OrganizationHandler{Service: service}
 }
+
 func RegisterOrganizationRoutes(router *gin.RouterGroup, db *gorm.DB) {
 	orgRepo := repository.NewOrganizationRepository(db)
 	orgService := services.NewOrganizationService(orgRepo)

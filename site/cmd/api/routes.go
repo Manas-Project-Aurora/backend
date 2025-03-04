@@ -10,4 +10,5 @@ func RegisterRoutes(router *gin.Engine, db *gorm.DB) {
 	apiV1 := router.Group("/v1")
 
 	handlers.RegisterOrganizationRoutes(apiV1, db)
+	handlers.RegisterVacancyRoutes(apiV1, db)
 }
