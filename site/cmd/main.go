@@ -11,7 +11,7 @@ import (
 func main() {
 	db, err := config.ConnectToDB()
 	if err != nil {
-		panic(err)
+		log.Fatalf("Базе пизда: %v", err)
 	}
 	router := gin.Default()
 	api.RegisterRoutes(router, db)
