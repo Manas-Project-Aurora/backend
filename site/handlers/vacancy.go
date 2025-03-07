@@ -27,10 +27,10 @@ func RegisterVacancyRoutes(router *gin.RouterGroup, db *gorm.DB) {
 	vacRoutes := router.Group("/vacancies")
 	{
 		vacRoutes.GET("", vacHandler.GetVacancies)
-		vacRoutes.GET("/:vacncy-id", vacHandler.GetVacancyByID)
+		vacRoutes.GET("/:vacancy-id", vacHandler.GetVacancyByID)
 		vacRoutes.POST("", vacHandler.CreateVacancy)
 		vacRoutes.PUT("/:vacancy-id", vacHandler.UpdateVacancy)
-		vacRoutes.DELETE("/:vacncy-id", vacHandler.DeleteVacancy)
+		vacRoutes.DELETE("/:vacancy-id", vacHandler.DeleteVacancy)
 	}
 }
 func composeVacancyJSON(v *models.Vacancy) gin.H {
