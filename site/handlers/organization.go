@@ -27,10 +27,10 @@ func RegisterOrganizationRoutes(router *gin.RouterGroup, db *gorm.DB) {
 	orgRoutes := router.Group("/organizations")
 	{
 		orgRoutes.GET("", orgHandler.GetOrganizations)
-		orgRoutes.GET("/:id", orgHandler.GetOrganizationByID)
+		orgRoutes.GET("/:organization-id", orgHandler.GetOrganizationByID)
 		orgRoutes.POST("", orgHandler.CreateOrganization)
-		orgRoutes.PUT("/:id", orgHandler.UpdateOrganization)
-		orgRoutes.DELETE("/:id", orgHandler.DeleteOrganization)
+		orgRoutes.PUT("/:organization-id", orgHandler.UpdateOrganization)
+		orgRoutes.DELETE("/:organization-id", orgHandler.DeleteOrganization)
 	}
 }
 
