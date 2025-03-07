@@ -30,13 +30,13 @@ func (r *vacancyRepository) GetAllVacancies(take, skip int) ([]models.Vacancy, i
 		return nil, 0, err
 	}
 
-	err = r.db.Offset(skip).Limit(take).Find(&vacs).Error
+	err = r.db.Preload("Org").Offset(skip).Limit(take).Find(&vacs).Error
 	return vacs, total, err
 }
 
 func (r *vacancyRepository) GetVacancyByID(id uint) (models.Vacancy, error) {
 	var vac models.Vacancy
-	err := r.db.First(&vac, id).Error
+	err := r.db.Preload("Org").First(&vac, id).Error
 	return vac, err
 }
 

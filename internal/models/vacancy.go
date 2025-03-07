@@ -12,7 +12,8 @@ const (
 
 type Vacancy struct {
 	ID             uint         `gorm:"primaryKey" json:"id"`
-	OrganizationID uint         `gorm:"not null" json:"company_id"`
+	OrganizationID uint         `gorm:"not null" json:"organization_id"`
+	Org            Organization `gorm:"foreignKey:OrganizationID" json:"-"`
 	Title          string       `gorm:"not null;size:100" json:"title"`
 	Description    string       `gorm:"not null" json:"description"`
 	Type           string       `gorm:"size:50" json:"type"`
