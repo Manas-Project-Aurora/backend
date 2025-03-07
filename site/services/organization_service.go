@@ -38,11 +38,7 @@ func (s *organizationService) UpdateOrganization(id uint, org *models.Organizati
 	if err != nil {
 		return err
 	}
-	existingOrg.Title = org.Title
-	existingOrg.Description = org.Description
-	existingOrg.Logo = org.Logo
-	existingOrg.PhoneNumber = org.PhoneNumber
-	existingOrg.Email = org.Email
+	existingOrg = *org
 
 	return s.repo.UpdateOrganization(&existingOrg)
 }
