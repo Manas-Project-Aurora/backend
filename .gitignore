@@ -27,4 +27,7 @@ go.work.sum
 .env 
 
 #local DBs 
-*.db
+*.db 
+
+#important configs 
+*.yaml
