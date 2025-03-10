@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	server.NewServer(8080).Run()
+	server.NewServer().SetPort(8080).SetDBConfig("dbconfig.yaml").Run()
 }
