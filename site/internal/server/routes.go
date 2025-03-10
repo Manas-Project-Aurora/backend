@@ -1,7 +1,7 @@
-package api
+package server
 
 import (
-	"github.com/Manas-Project-Aurora/gavna/site/handlers"
+	"github.com/Manas-Project-Aurora/gavna/site/internal/handlers"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
