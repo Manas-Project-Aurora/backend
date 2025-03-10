@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/Manas-Project-Aurora/gavna/internal/models"
-	"github.com/Manas-Project-Aurora/gavna/site/repository"
-	"github.com/Manas-Project-Aurora/gavna/site/services"
+	"github.com/Manas-Project-Aurora/gavna/site/internal/repository"
+	"github.com/Manas-Project-Aurora/gavna/site/internal/services"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
