@@ -11,7 +11,7 @@ type CLIConfig struct {
 
 func ParseFlags() CLIConfig {
 	port := pflag.UintP("port", "p", 8080, "Port for the server")
-	path := pflag.StringP("dbpath", "d", "dbconfig.yaml", "Enable debug mode")
+	path := pflag.StringP("dbpath", "d", "dbconfig.yaml", "Set dbConfig.yaml path")
 	pflag.Parse()
 
 	return CLIConfig{
