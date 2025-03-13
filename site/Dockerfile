@@ -22,7 +22,7 @@ COPY --from=builder /app/${YAML_PATH} /app/dbconfig.yaml
 
 EXPOSE ${PORT}
 
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash nano
 
 CMD ["/bin/sh"]
 
