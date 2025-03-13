@@ -6,7 +6,6 @@ import (
 )
 
 type DBConfig struct {
-	Driver   string `yaml:"driver"`
 	Host     string `yaml:"host"`
 	Port     int    `yaml:"port"`
 	User     string `yaml:"user"`
