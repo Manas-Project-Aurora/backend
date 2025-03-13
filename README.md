@@ -43,6 +43,7 @@ go mod tidy && go mod download
 go run cmd/main.go -p 8080 -d dbconfig.yaml
 ```
 `-p` flag stands for the port on which the service will run. Default: `8080`
+
 `-d` flag stands for the path to the yaml. Default: `dbconfig.yaml`
 
 **Running in docker**
@@ -51,13 +52,16 @@ go run cmd/main.go -p 8080 -d dbconfig.yaml
  sudo docker build -t myservice -f service_name/Dockerfile . --build-arg YAML=service_name/dbconfig.yaml
 ```
 `--build-arg YAML` flag stands for the path to the yaml. Default: `service_name/dbconfig.yaml`
+
 2. Run container:
 ```bash
 sudo docker run -it --rm -e PORT=8080 -p 8080:8080 myservice
 ```
 `-e PORT` flag stands for the port to expose inside the container. Default: `8080`
+
 `-p` flag stands for the port to expose outside of the container. Syntax:
 `-p OUTER:INNER`
+
 3. Inside container:
 ```bash
 ./server -p 8080
@@ -65,4 +69,5 @@ sudo docker run -it --rm -e PORT=8080 -p 8080:8080 myservice
 
 ---
 ***Contributions***
+
 Don't
