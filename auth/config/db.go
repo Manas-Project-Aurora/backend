@@ -3,26 +3,26 @@ package config
 import (
 	"log"
 
-	"github.com/Manas-Project-Aurora/gavna/internal/models"
+	authmodels "github.com/Manas-Project-Aurora/gavna/auth/models"
+	internalmodels "github.com/Manas-Project-Aurora/gavna/internal/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-// ConnectToDB устанавливает соединение с базой данных SQLite.
-// Функция также выполняет автоматическую миграцию для модели User,
-// что обеспечивает создание (или обновление) таблицы в базе данных.
-func ConnectToDB() (*gorm.DB, error) {
-	// Открываем соединение с базой данных, в данном случае используем SQLite
-	db, err := gorm.Open(sqlite.Open("auth.db"), &gorm.Config{})
+var DB *gorm.DB
+
+func InitDB() {
+	var err error
+	DB, err = gorm.Open(sqlite.Open("auth.db"), &gorm.Config{})
 	if err != nil {
-		return nil, err
+		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
-	// Автоматически применяем миграции для модели User
-	if err := db.AutoMigrate(&models.User{}); err != nil {
-		log.Println("Ошибка миграции модели User:", err)
-		return nil, err
+	// Миграция таблиц
+	err = DB.AutoMigrate(&internalmodels.User{}, &authmodels.RefreshToken{})
+	if err != nil {
+		log.Fatalf("Failed to migrate database: %v", err)
 	}
 
-	return db, nil
+	log.Println("Database connected and migrated successfully")
 }
