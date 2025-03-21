@@ -1,19 +1,30 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
-
+	"github.com/Manas-Project-Aurora/gavna/auth/config"
 	"github.com/Manas-Project-Aurora/gavna/auth/handlers"
+	"github.com/Manas-Project-Aurora/gavna/auth/repository"
+	"github.com/Manas-Project-Aurora/gavna/auth/services"
+	"github.com/gin-gonic/gin"
 )
 
-// RegisterRoutes регистрирует все маршруты для сервиса аутентификации.
-// Здесь создается группа для версии API v1 и вложенная группа для auth.
-func RegisterRoutes(router *gin.Engine, db *gorm.DB) {
-	// Группа для версии API v1
+func SetupRoutes() *gin.Engine {
+	router := gin.Default()
+
+	// Инициализация репозитория, сервиса и хендлера
+	authRepo := repository.NewAuthRepository(config.DB)
+	authService := services.NewAuthService(authRepo)
+	authHandler := handlers.NewAuthHandler(authService)
+
+	// Группы роутов
 	apiV1 := router.Group("/v1")
-	// Группа для аутентификации
 	authGroup := apiV1.Group("/auth")
-	// Регистрируем маршруты, связанные с аутентификацией (регистрация, вход, обновление токена, логаут)
-	handlers.RegisterAuthRoutes(authGroup, db)
+	{
+		authGroup.POST("/register", authHandler.Register)
+		authGroup.POST("/login", authHandler.Login)
+		authGroup.POST("/token", authHandler.RefreshToken)
+		authGroup.POST("/logout", authHandler.Logout)
+	}
+
+	return router
 }
