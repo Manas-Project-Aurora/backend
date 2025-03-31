@@ -1,18 +1,18 @@
-package api
+package server
 
 import (
-	"github.com/Manas-Project-Aurora/gavna/auth/config"
-	"github.com/Manas-Project-Aurora/gavna/auth/handlers"
-	"github.com/Manas-Project-Aurora/gavna/auth/repository"
-	"github.com/Manas-Project-Aurora/gavna/auth/services"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/handlers"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/repository"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/services"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func SetupRoutes() *gin.Engine {
+func SetupRoutes(db *gorm.DB) *gin.Engine {
 	router := gin.Default()
 
 	// Инициализация репозитория, сервиса и хендлера
-	authRepo := repository.NewAuthRepository(config.DB)
+	authRepo := repository.NewAuthRepository(db)
 	authService := services.NewAuthService(authRepo)
 	authHandler := handlers.NewAuthHandler(authService)
 

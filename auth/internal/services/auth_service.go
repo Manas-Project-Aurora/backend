@@ -3,9 +3,9 @@ package services
 import (
 	"errors"
 
-	"github.com/Manas-Project-Aurora/gavna/auth/models"
-	"github.com/Manas-Project-Aurora/gavna/auth/repository"
-	"github.com/Manas-Project-Aurora/gavna/auth/utils"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/models"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/repository"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/utils"
 	internalmodels "github.com/Manas-Project-Aurora/gavna/internal/models"
 )
 

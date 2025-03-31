@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Manas-Project-Aurora/gavna/auth/services"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/services"
 	"github.com/gin-gonic/gin"
 )
 
