@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-	"strings"
 
 	"github.com/Manas-Project-Aurora/gavna/auth/internal/services"
 	"github.com/gin-gonic/gin"
@@ -64,49 +63,57 @@ func (h *AuthHandler) Login(c *gin.Context) {
 		return
 	}
 
-	// Используем email как username
 	username := req.Email
-
 	tokens, err := h.service.Login(username, req.Password)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, tokens)
+	// Устанавливаем access token и refresh token в cookie
+	c.SetCookie("access_token", tokens.AccessToken, 3600, "/", "", true, true)
+	c.SetCookie("refresh_token", tokens.RefreshToken, 604800, "/", "", true, true) // 7 дней
+
+	c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
 }
 
 // RefreshToken обрабатывает запрос на обновление токена
 func (h *AuthHandler) RefreshToken(c *gin.Context) {
-	var req TokenRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	refreshToken, err := c.Cookie("refresh_token")
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "No refresh token provided"})
 		return
 	}
 
-	tokens, err := h.service.RefreshToken(req.RefreshToken)
+	tokens, err := h.service.RefreshToken(refreshToken)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid or expired refresh token"})
 		return
 	}
 
-	c.JSON(http.StatusOK, tokens)
+	// Обновляем токены в cookie
+	c.SetCookie("access_token", tokens.AccessToken, 3600, "/", "", true, true)
+	c.SetCookie("refresh_token", tokens.RefreshToken, 604800, "/", "", true, true)
+
+	c.JSON(http.StatusOK, gin.H{"message": "Token refreshed"})
 }
 
 // Logout обрабатывает запрос на выход
 func (h *AuthHandler) Logout(c *gin.Context) {
-	// Получаем refresh token из Authorization заголовка, если он есть
-	authHeader := c.GetHeader("Authorization")
-	refreshToken := ""
-
-	if authHeader != "" && strings.HasPrefix(authHeader, "Bearer ") {
-		refreshToken = strings.TrimPrefix(authHeader, "Bearer ")
+	refreshToken, err := c.Cookie("refresh_token")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No refresh token provided"})
+		return
 	}
 
 	if err := h.service.Logout(refreshToken); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	// Очищаем куки
+	c.SetCookie("access_token", "", -1, "/", "", true, true)
+	c.SetCookie("refresh_token", "", -1, "/", "", true, true)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
 }
