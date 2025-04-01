@@ -1,22 +1,13 @@
 package main
 
 import (
-	"log"
-
-	"github.com/Manas-Project-Aurora/gavna/auth/cmd/api"
-	"github.com/Manas-Project-Aurora/gavna/auth/config"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/config"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/server"
 )
 
 func main() {
-	// Инициализация базы данных
-	config.InitDB()
+	cfg := config.ParseFlags()
 
-	// Настройка маршрутов
-	router := api.SetupRoutes()
+	server.NewServer().SetDBConfig(cfg.DBConfigPath).SetPort(cfg.Port).Run()
 
-	// Запуск сервера
-	log.Println("Starting auth service on :8080")
-	if err := router.Run(":8080"); err != nil {
-		log.Fatalf("Failed to start server: %v", err)
-	}
 }

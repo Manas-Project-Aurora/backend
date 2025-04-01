@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Manas-Project-Aurora/gavna/auth/models"
-	"github.com/Manas-Project-Aurora/gavna/auth/utils"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/models"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/utils"
 	internalmodels "github.com/Manas-Project-Aurora/gavna/internal/models"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
