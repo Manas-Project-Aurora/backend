@@ -2,6 +2,7 @@ package db
 
 import (
 	"github.com/Manas-Project-Aurora/gavna/auth/internal/models"
+	in "github.com/Manas-Project-Aurora/gavna/internal/models"
 	"gorm.io/gorm"
 	"log"
 	"reflect"
@@ -10,6 +11,7 @@ import (
 func AutomateMigrations(db *gorm.DB) {
 	modelsToMigrate := []interface{}{
 		&models.RefreshToken{},
+		&in.User{},
 	}
 
 	for _, model := range modelsToMigrate {
