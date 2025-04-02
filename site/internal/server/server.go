@@ -18,10 +18,11 @@ import (
 type Server struct {
 	port       uint
 	dbYamlPath string
+	BasePath   string
 }
 
 func NewServer(c config.CLIConfig) *Server {
-	return &Server{port: c.Port, dbYamlPath: c.DBConfigPath}
+	return &Server{port: c.Port, dbYamlPath: c.DBConfigPath, BasePath: c.BasePath}
 }
 
 func (s *Server) SetPort(port uint) *Server {
@@ -44,7 +45,7 @@ func (s *Server) Run() {
 		errChan <- fmt.Errorf("Базе пизда: %v", err)
 	}
 	router := gin.Default()
-	RegisterRoutes(router, db)
+	RegisterRoutes(router, db, s.BasePath)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", s.port),
 		Handler: router,
