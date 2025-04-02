@@ -8,6 +8,6 @@ import (
 func main() {
 	cfg := config.ParseFlags()
 
-	server.NewServer().SetDBConfig(cfg.DBConfigPath).SetPort(cfg.Port).Run()
+	server.NewServer().SetDBConfig(cfg.DBConfigPath).SetPort(cfg.Port).SetBasePath(cfg.BasePath).Run()
 
 }
