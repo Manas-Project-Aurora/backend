@@ -18,7 +18,7 @@ func SetupRoutes(db *gorm.DB) *gin.Engine {
 
 	// Группы роутов
 	apiV1 := router.Group("/v1")
-	authGroup := apiV1.Group("/auth")
+	authGroup := apiV1.Group("/aurora-auth")
 	{
 		authGroup.POST("/register", authHandler.Register)
 		authGroup.POST("/login", authHandler.Login)
