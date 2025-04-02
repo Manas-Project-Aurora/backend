@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func SetupRoutes(db *gorm.DB) *gin.Engine {
+func SetupRoutes(db *gorm.DB, basePath string) *gin.Engine {
 	router := gin.Default()
 
 	// Инициализация репозитория, сервиса и хендлера
@@ -17,8 +17,8 @@ func SetupRoutes(db *gorm.DB) *gin.Engine {
 	authHandler := handlers.NewAuthHandler(authService)
 
 	// Группы роутов
-	apiV1 := router.Group("/v1")
-	authGroup := apiV1.Group("/aurora-auth")
+	apiV1 := router.Group(basePath + "/v1")
+	authGroup := apiV1.Group("/auth")
 	{
 		authGroup.POST("/register", authHandler.Register)
 		authGroup.POST("/login", authHandler.Login)

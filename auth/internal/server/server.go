@@ -17,6 +17,7 @@ import (
 type Server struct {
 	port       uint
 	dbYamlPath string
+	basePath   string
 }
 
 func NewServer() *Server {
@@ -32,6 +33,10 @@ func (s *Server) SetDBConfig(path string) *Server {
 	s.dbYamlPath = path
 	return s
 }
+func (s *Server) SetBasePath(basePath string) *Server {
+	s.basePath = basePath
+	return s
+}
 
 func (s *Server) Run() {
 	errChan := make(chan error, 1)
@@ -42,7 +47,7 @@ func (s *Server) Run() {
 	if err != nil {
 		errChan <- fmt.Errorf("Базе пизда: %v", err)
 	}
-	router := SetupRoutes(db)
+	router := SetupRoutes(db, s.basePath)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", s.port),
 		Handler: router,
