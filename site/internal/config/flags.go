@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/spf13/pflag"
+	"strings"
 )
 
 type CLIConfig struct {
@@ -15,10 +16,11 @@ func ParseFlags() CLIConfig {
 	path := pflag.StringP("dbpath", "d", "dbconfig.yaml", "Set dbConfig.yaml path")
 	base := pflag.StringP("basepath", "b", "", "Set base path")
 	pflag.Parse()
+	basePath := strings.TrimSuffix(*base, "/")
 
 	return CLIConfig{
 		Port:         *port,
 		DBConfigPath: *path,
-		BasePath:     *base,
+		BasePath:     basePath,
 	}
 }
