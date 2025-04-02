@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/spf13/pflag"
+	"strings"
 )
 
 type CLIConfig struct {
@@ -16,9 +17,12 @@ func ParseFlags() CLIConfig {
 	base := pflag.StringP("basepath", "b", "", "Set base path")
 	pflag.Parse()
 
+	// Убираем завершающий слеш, если есть
+	basePath := strings.TrimSuffix(*base, "/")
+
 	return CLIConfig{
 		Port:         *port,
 		DBConfigPath: *path,
-		BasePath:     *base,
+		BasePath:     basePath, // *base
 	}
 }
