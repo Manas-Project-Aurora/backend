@@ -3,15 +3,15 @@ package server
 import (
 	"context"
 	"fmt"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/config"
+	"github.com/Manas-Project-Aurora/gavna/auth/internal/db"
+	"gorm.io/gorm"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/db"
-	"gorm.io/gorm"
 )
 
 type Server struct {
@@ -20,8 +20,8 @@ type Server struct {
 	basePath   string
 }
 
-func NewServer() *Server {
-	return &Server{port: 0, dbYamlPath: "dbconfig.yaml"}
+func NewServer(c config.CLIConfig) *Server {
+	return &Server{port: c.Port, dbYamlPath: c.DBConfigPath, basePath: c.BasePath}
 }
 
 func (s *Server) SetPort(port uint) *Server {

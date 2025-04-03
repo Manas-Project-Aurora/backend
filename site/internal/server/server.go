@@ -3,25 +3,26 @@ package server
 import (
 	"context"
 	"fmt"
+	"github.com/Manas-Project-Aurora/gavna/site/internal/config"
+	"github.com/Manas-Project-Aurora/gavna/site/internal/db"
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/Manas-Project-Aurora/gavna/site/internal/db"
-	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 type Server struct {
 	port       uint
 	dbYamlPath string
+	BasePath   string
 }
 
-func NewServer() *Server {
-	return &Server{port: 0, dbYamlPath: "dbconfig.yaml"}
+func NewServer(c config.CLIConfig) *Server {
+	return &Server{port: c.Port, dbYamlPath: c.DBConfigPath, BasePath: c.BasePath}
 }
 
 func (s *Server) SetPort(port uint) *Server {
@@ -44,7 +45,7 @@ func (s *Server) Run() {
 		errChan <- fmt.Errorf("Базе пизда: %v", err)
 	}
 	router := gin.Default()
-	RegisterRoutes(router, db)
+	RegisterRoutes(router, db, s.BasePath)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", s.port),
 		Handler: router,

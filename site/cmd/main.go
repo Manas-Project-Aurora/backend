@@ -7,5 +7,5 @@ import (
 
 func main() {
 	cfg := config.ParseFlags()
-	server.NewServer().SetPort(cfg.Port).SetDBConfig(cfg.DBConfigPath).Run()
+	server.NewServer(cfg).Run()
 }
