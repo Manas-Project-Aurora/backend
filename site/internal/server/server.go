@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"github.com/Manas-Project-Aurora/gavna/site/internal/config"
 	"github.com/Manas-Project-Aurora/gavna/site/internal/db"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 )
@@ -19,10 +21,11 @@ type Server struct {
 	port       uint
 	dbYamlPath string
 	BasePath   string
+	Domain     string
 }
 
 func NewServer(c config.CLIConfig) *Server {
-	return &Server{port: c.Port, dbYamlPath: c.DBConfigPath, BasePath: c.BasePath}
+	return &Server{port: c.Port, dbYamlPath: c.DBConfigPath, BasePath: c.BasePath, Domain: c.Domain}
 }
 
 func (s *Server) SetPort(port uint) *Server {
@@ -32,6 +35,11 @@ func (s *Server) SetPort(port uint) *Server {
 
 func (s *Server) SetDBConfig(path string) *Server {
 	s.dbYamlPath = path
+	return s
+}
+
+func (s *Server) SetSiteDomain(domain string) *Server {
+	s.Domain = domain
 	return s
 }
 
@@ -45,6 +53,17 @@ func (s *Server) Run() {
 		errChan <- fmt.Errorf("Базе пизда: %v", err)
 	}
 	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowOriginFunc: func(origin string) bool {
+			return strings.HasSuffix(origin, "."+s.Domain) || origin == "https://"+s.Domain
+		},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Authorization", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
 	RegisterRoutes(router, db, s.BasePath)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", s.port),
