@@ -3,10 +3,10 @@ package services
 import (
 	"errors"
 
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/models"
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/repository"
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/utils"
-	internalmodels "github.com/Manas-Project-Aurora/gavna/internal/models"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/models"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/repository"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/utils"
+	internalmodels "github.com/Manas-Project-Aurora/backend/internal/models"
 )
 
 type AuthService struct {
