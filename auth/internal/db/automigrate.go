@@ -1,8 +1,8 @@
 package db
 
 import (
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/models"
-	in "github.com/Manas-Project-Aurora/gavna/internal/models"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/models"
+	in "github.com/Manas-Project-Aurora/backend/internal/models"
 	"gorm.io/gorm"
 	"log"
 	"reflect"

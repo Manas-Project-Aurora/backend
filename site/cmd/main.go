@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Manas-Project-Aurora/gavna/site/internal/config"
-	"github.com/Manas-Project-Aurora/gavna/site/internal/server"
+	"github.com/Manas-Project-Aurora/backend/site/internal/config"
+	"github.com/Manas-Project-Aurora/backend/site/internal/server"
 )
 
 func main() {

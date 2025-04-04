@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/config"
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/db"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/config"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/db"
 	"github.com/gin-contrib/cors"
 	"gorm.io/gorm"
 	"log"

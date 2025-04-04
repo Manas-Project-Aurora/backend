@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/services"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/services"
 	"github.com/gin-gonic/gin"
 )
 

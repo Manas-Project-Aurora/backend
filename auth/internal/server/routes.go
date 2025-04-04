@@ -1,9 +1,9 @@
 package server
 
 import (
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/handlers"
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/repository"
-	"github.com/Manas-Project-Aurora/gavna/auth/internal/services"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/handlers"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/repository"
+	"github.com/Manas-Project-Aurora/backend/auth/internal/services"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
