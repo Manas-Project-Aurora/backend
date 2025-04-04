@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/Manas-Project-Aurora/gavna/internal/models"
+	"github.com/Manas-Project-Aurora/backend/internal/models"
 	"gorm.io/gorm"
 )
 

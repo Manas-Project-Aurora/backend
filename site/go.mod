@@ -1,11 +1,11 @@
-module github.com/Manas-Project-Aurora/gavna/site
+module github.com/Manas-Project-Aurora/backend/site
 
 go 1.22.2
 
-replace github.com/Manas-Project-Aurora/gavna/internal => ../internal
+replace github.com/Manas-Project-Aurora/backend/internal => ../internal
 
 require (
-	github.com/Manas-Project-Aurora/gavna/internal v0.0.0-00010101000000-000000000000
+	github.com/Manas-Project-Aurora/backend/internal v0.0.0-00010101000000-000000000000
 	github.com/gin-contrib/cors v1.6.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/spf13/pflag v1.0.6

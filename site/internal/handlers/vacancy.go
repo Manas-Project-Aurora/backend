@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Manas-Project-Aurora/gavna/internal/models"
-	"github.com/Manas-Project-Aurora/gavna/site/internal/repository"
-	"github.com/Manas-Project-Aurora/gavna/site/internal/services"
+	"github.com/Manas-Project-Aurora/backend/internal/models"
+	"github.com/Manas-Project-Aurora/backend/site/internal/repository"
+	"github.com/Manas-Project-Aurora/backend/site/internal/services"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

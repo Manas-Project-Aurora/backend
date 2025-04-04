@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/Manas-Project-Aurora/gavna/internal/models"
-	"github.com/Manas-Project-Aurora/gavna/site/internal/repository"
+	"github.com/Manas-Project-Aurora/backend/internal/models"
+	"github.com/Manas-Project-Aurora/backend/site/internal/repository"
 )
 
 type OrganizationService interface {
