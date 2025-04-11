@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 func ConnectToDB(configPath string) (*gorm.DB, error) {
@@ -13,7 +14,12 @@ func ConnectToDB(configPath string) (*gorm.DB, error) {
 	}
 	dsn := fmt.Sprintf("host=%s port=%d user=%s dbname=%s password=%s sslmode=%s",
 		config.Host, config.Port, config.User, config.Name, config.Password, config.Ssl)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			TablePrefix:   "public.",
+			SingularTable: false,
+		},
+	})
 	if err != nil {
 		return nil, err
 	}

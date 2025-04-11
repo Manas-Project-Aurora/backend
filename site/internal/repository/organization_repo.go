@@ -29,7 +29,6 @@ func (r *organizationRepository) GetAllOrganizations(take, skip int) ([]models.O
 	if err != nil {
 		return nil, 0, err
 	}
-
 	err = r.db.Offset(skip).Limit(take).Find(&orgs).Error
 	return orgs, total, err
 }

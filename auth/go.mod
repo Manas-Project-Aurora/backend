@@ -51,4 +51,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/Manas-Project-Aurora/gavna/internal => ../internal
+replace github.com/Manas-Project-Aurora/backend/internal => ../internal
